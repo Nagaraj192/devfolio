@@ -38,7 +38,11 @@ export default function Navigation({ activeSection, setActiveSection }: Navigati
   };
 
   const downloadResume = () => {
-    console.log('Resume download triggered'); //todo: remove mock functionality
+    const link = document.createElement('a');
+    link.href = '/Alex_Johnson_Resume.pdf';
+    link.download = 'Alex_Johnson_Resume.pdf';
+    link.click();
+    console.log('Resume download triggered');
   };
 
   const toggleTheme = () => {
