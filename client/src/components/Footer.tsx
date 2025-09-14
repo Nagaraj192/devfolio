@@ -9,7 +9,7 @@ export default function Footer() {
     { icon: Linkedin, href: '#', label: 'LinkedIn', testId: 'link-footer-linkedin' },
     { icon: SiDevdotto, href: '#', label: 'Dev.to', testId: 'link-footer-devto' },
     { icon: SiMedium, href: '#', label: 'Medium', testId: 'link-footer-medium' },
-    { icon: Mail, href: 'mailto:alex.johnson@email.com', label: 'Email', testId: 'link-footer-email' }
+    { icon: Mail, href: 'mailto:nag.thaduri001@gmail.com', label: 'Email', testId: 'link-footer-email' }
   ];
 
   const quickLinks = [
@@ -44,7 +44,7 @@ export default function Footer() {
               className="font-bold text-xl hover-elevate rounded-lg px-3 py-2 text-left"
               data-testid="button-footer-logo"
             >
-              Alex Johnson
+              Raj
             </button>
             <p className="text-muted-foreground text-sm max-w-xs">
               Full Stack Developer passionate about creating exceptional digital experiences 
@@ -100,7 +100,7 @@ export default function Footer() {
             <div className="space-y-2 text-sm text-muted-foreground">
               <p>Ready to start your next project?</p>
               <a
-                href="mailto:alex.johnson@email.com"
+                href="mailto:nag.thaduri001@gmail.com"
                 className="block hover:text-primary transition-colors"
                 data-testid="link-footer-contact-email"
               >
@@ -121,7 +121,7 @@ export default function Footer() {
         <div className="mt-12 pt-8 border-t border-border">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-muted-foreground text-center md:text-left">
-              © {currentYear} Alex Johnson. All rights reserved.
+              © {currentYear} Raj. All rights reserved.
             </p>
             <p className="text-sm text-muted-foreground flex items-center gap-1 text-center md:text-right">
               Made with <Heart className="w-4 h-4 text-red-500" /> using React & Tailwind CSS

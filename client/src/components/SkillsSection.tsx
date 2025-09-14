@@ -4,46 +4,33 @@ import { Progress } from "@/components/ui/progress";
 
 export default function SkillsSection() {
   const skillCategories = [
-    {
-      category: "Frontend",
-      skills: [
-        { name: "React", level: 95, icon: "⚛️" },
-        { name: "TypeScript", level: 90, icon: "📘" },
-        { name: "Next.js", level: 85, icon: "▲" },
-        { name: "Tailwind CSS", level: 92, icon: "🎨" },
-        { name: "JavaScript", level: 95, icon: "🟨" }
-      ]
-    },
-    {
-      category: "Backend",
-      skills: [
-        { name: "Node.js", level: 90, icon: "🟢" },
-        { name: "Express.js", level: 88, icon: "🚀" },
-        { name: "Python", level: 80, icon: "🐍" },
-        { name: "REST APIs", level: 92, icon: "🔗" },
-        { name: "GraphQL", level: 75, icon: "📊" }
-      ]
-    },
-    {
-      category: "Database",
-      skills: [
-        { name: "MongoDB", level: 88, icon: "🍃" },
-        { name: "PostgreSQL", level: 85, icon: "🐘" },
-        { name: "Redis", level: 78, icon: "🔴" },
-        { name: "Prisma", level: 82, icon: "💎" }
-      ]
-    },
-    {
-      category: "Cloud & DevOps",
-      skills: [
-        { name: "AWS", level: 85, icon: "☁️" },
-        { name: "Docker", level: 80, icon: "🐳" },
-        { name: "Git", level: 95, icon: "📝" },
-        { name: "CI/CD", level: 78, icon: "🔄" },
-        { name: "Vercel", level: 88, icon: "🔺" }
-      ]
-    }
-  ];
+  {
+    category: "Frontend",
+    skills: [
+      { name: "React", level: 95, icon: "⚛️" },
+      { name: "JavaScript", level: 90, icon: "🟨" }
+    ]
+  },
+  {
+    category: "Backend",
+    skills: [
+      { name: "Node.js", level: 90, icon: "🟩" },
+      { name: "Express", level: 85, icon: "🚏" }
+    ]
+  },
+  {
+    category: "Database",
+    skills: [
+      { name: "MongoDB", level: 88, icon: "🍃" }
+    ]
+  },
+  {
+    category: "Cloud & DevOps",
+    skills: [
+      { name: "AWS", level: 85, icon: "☁️" }
+    ]
+  }
+];
 
   const tools = [
     "VS Code", "Figma", "Postman", "Linear", "Slack", 

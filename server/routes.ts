@@ -1,3 +1,4 @@
+import nodemailer from "nodemailer";
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
@@ -52,6 +53,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Simulate processing time
       await new Promise(resolve => setTimeout(resolve, 500));
       
+      
+// Attempt to send email via SMTP if environment is configured
+try {
+  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_FROM, SMTP_TO } = process.env as Record<string, string | undefined>;
+  if (SMTP_HOST && SMTP_PORT && SMTP_USER && SMTP_PASS && SMTP_TO) {
+    const transporter = nodemailer.createTransport({
+      host: SMTP_HOST,
+      port: parseInt(SMTP_PORT, 10) || 587,
+      secure: false,
+      auth: { user: SMTP_USER, pass: SMTP_PASS },
+    });
+    await transporter.sendMail({
+      from: SMTP_FROM || SMTP_USER,
+      to: SMTP_TO,
+      subject: `Portfolio contact from ${validatedData.name}: ${validatedData.subject}`,
+      text: `From: ${validatedData.name} <${validatedData.email}>\n\n${validatedData.message}`,
+    });
+  }
+} catch (emailErr) {
+  console.error("Email send failed (falling back to log):", emailErr);
+}
       res.json({ 
         success: true, 
         message: "Your message has been received. Thank you for reaching out!" 

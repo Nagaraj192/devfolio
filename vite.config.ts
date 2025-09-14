@@ -16,6 +16,11 @@ export default defineConfig({
         ]
       : []),
   ],
+
+  // 👇 ADD THIS for GitHub Pages
+  // Replace "devfolio" with your repo name, or set to "/" if the repo is yourusername.github.io
+  base: "/devfolio/",
+
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "client", "src"),
@@ -25,6 +30,7 @@ export default defineConfig({
   },
   root: path.resolve(import.meta.dirname, "client"),
   build: {
+    // This outputs to dist/public at the repo root
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
   },

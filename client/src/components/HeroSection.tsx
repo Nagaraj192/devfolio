@@ -70,7 +70,7 @@ export default function HeroSection() {
         {/* Main Heading */}
         <h1 className="text-5xl md:text-7xl font-bold mb-6">
           Hi, I'm{' '}
-          <span className="text-primary">Alex Johnson</span>
+          <span className="text-primary">Raj</span>
         </h1>
         
         {/* Animated Subtitle */}

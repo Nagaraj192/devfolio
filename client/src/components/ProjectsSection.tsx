@@ -1,3 +1,4 @@
+// TODO: Replace the sample data below with your real experience/projects.
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";

@@ -39,8 +39,8 @@ export default function Navigation({ activeSection, setActiveSection }: Navigati
 
   const downloadResume = () => {
     const link = document.createElement('a');
-    link.href = '/Alex_Johnson_Resume.pdf';
-    link.download = 'Alex_Johnson_Resume.pdf';
+    link.href = '/Raj_Resume.pdf';
+    link.download = 'Raj_Resume.pdf';
     link.click();
     console.log('Resume download triggered');
   };
@@ -60,7 +60,7 @@ export default function Navigation({ activeSection, setActiveSection }: Navigati
             className="font-bold text-xl hover-elevate rounded-lg px-3 py-2"
             data-testid="button-logo"
           >
-            Alex Johnson
+            Raj
           </button>
 
           {/* Desktop Navigation */}

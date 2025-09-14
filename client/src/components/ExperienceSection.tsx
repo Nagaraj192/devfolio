@@ -1,3 +1,4 @@
+// TODO: Replace the sample data below with your real experience/projects.
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, MapPin, Building } from "lucide-react";
