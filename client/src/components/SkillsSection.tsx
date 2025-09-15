@@ -1,106 +1,74 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
+type Group = {
+  title: string;
+  items: string[];
+};
 
-export default function SkillsSection() {
-  const skillCategories = [
+const groups: Group[] = [
   {
-    category: "Frontend",
-    skills: [
-      { name: "React", level: 95, icon: "⚛️" },
-      { name: "JavaScript", level: 90, icon: "🟨" }
-    ]
+    title: "Languages",
+    items: ["Java (8/11/17)", "JavaScript", "TypeScript", "SQL / PL/SQL", "Python"],
   },
   {
-    category: "Backend",
-    skills: [
-      { name: "Node.js", level: 90, icon: "🟩" },
-      { name: "Express", level: 85, icon: "🚏" }
-    ]
+    title: "Frameworks & Libraries",
+    items: [
+      "Spring Boot / MVC / Cloud / Security / Hibernate / JPA",
+      "Node.js", "Redux", "React", "Angular", "Vue.js"
+    ],
   },
   {
-    category: "Database",
-    skills: [
-      { name: "MongoDB", level: 88, icon: "🍃" }
-    ]
+    title: "Databases",
+    items: ["PostgreSQL", "MySQL", "MongoDB", "Oracle", "Redis", "SQL Server"],
   },
   {
-    category: "Cloud & DevOps",
-    skills: [
-      { name: "AWS", level: 85, icon: "☁️" }
-    ]
-  }
+    title: "Messaging & Streaming",
+    items: ["Apache Kafka"],
+  },
+  {
+    title: "Cloud & Containerization",
+    items: [
+      "AWS (EC2, S3, RDS, Lambda, SNS)",
+      "Docker", "Kubernetes (EKS, OpenShift)", "Terraform", "Azure"
+    ],
+  },
+  {
+    title: "Build & DevOps",
+    items: ["Git", "Maven", "Gradle", "GitHub Actions", "Jenkins", "GitLab", "Visual Studio"],
+  },
+  {
+    title: "Testing & Monitoring",
+    items: ["Postman", "JUnit", "Mockito", "Cypress", "Selenium", "Splunk", "ELK Stack"],
+  },
+  {
+    title: "Web Services & Methods",
+    items: ["RESTful APIs", "SOAP", "Tomcat"],
+  },
+  {
+    title: "Methodologies & Tools",
+    items: ["Agile", "Scrum", "Jira", "ETL", "Confluence", "Shell Scripting", "XML", "JSON", "GitHub Copilot"],
+  },
+  {
+    title: "AI/ML Exposure",
+    items: ["TensorFlow", "SageMaker", "Claude", "Anomaly Detection", "Predictive Analytics"],
+  },
 ];
 
-  const tools = [
-    "VS Code", "Figma", "Postman", "Linear", "Slack", 
-    "Notion", "Chrome DevTools", "GitHub", "Jira"
-  ];
-
+export default function SkillsSection() {
   return (
-    <section id="skills" className="py-24 px-6 bg-muted/20">
+    <section id="skills" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Skills & Expertise</h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            A comprehensive toolkit for building modern web applications
-          </p>
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold">Skills</h2>
+          <p className="text-muted-foreground mt-2">Core technologies I use to build and ship production software</p>
         </div>
 
-        {/* Technical Skills */}
-        <div className="grid lg:grid-cols-2 gap-8 mb-16">
-          {skillCategories.map((category, index) => (
-            <Card key={index} className="hover-elevate">
-              <CardContent className="p-8">
-                <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
-                  {category.category}
-                  <Badge variant="secondary" className="text-xs">
-                    {category.skills.length}
-                  </Badge>
-                </h3>
-                <div className="space-y-6">
-                  {category.skills.map((skill, skillIndex) => (
-                    <div key={skillIndex} className="space-y-2">
-                      <div className="flex justify-between items-center">
-                        <span className="font-medium flex items-center gap-2">
-                          <span className="text-lg">{skill.icon}</span>
-                          {skill.name}
-                        </span>
-                        <span className="text-sm text-muted-foreground" data-testid={`text-skill-level-${skill.name.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}>
-                          {skill.level}%
-                        </span>
-                      </div>
-                      <Progress 
-                        value={skill.level} 
-                        className="h-2"
-                        data-testid={`progress-skill-${skill.name.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+        <div className="grid gap-4 md:grid-cols-2">
+          {groups.map((g) => (
+            <div key={g.title} className="rounded-xl border p-5">
+              <h3 className="font-semibold">{g.title}</h3>
+              <p className="mt-2 opacity-90">{g.items.join(", ")}</p>
+            </div>
           ))}
         </div>
-
-        {/* Tools & Software */}
-        <Card>
-          <CardContent className="p-8">
-            <h3 className="text-xl font-semibold mb-6">Tools & Software</h3>
-            <div className="flex flex-wrap gap-3">
-              {tools.map((tool, index) => (
-                <Badge 
-                  key={index} 
-                  variant="outline" 
-                  className="px-4 py-2 text-sm hover-elevate"
-                  data-testid={`badge-tool-${tool.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}
-                >
-                  {tool}
-                </Badge>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
       </div>
     </section>
   );
