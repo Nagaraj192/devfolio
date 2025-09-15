@@ -1,97 +1,74 @@
+import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { contactFormSchema, type ContactForm } from "@shared/schema";
-import { useMutation } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
 
+// --- Local schema (no @shared/schema, no apiRequest) ---
+const contactFormSchema = z.object({
+  name: z.string().min(2, "Please enter your full name."),
+  email: z.string().email("Please enter a valid email."),
+  subject: z.string().optional(),
+  message: z.string().min(10, "Please enter at least 10 characters."),
+});
+type ContactForm = z.infer<typeof contactFormSchema>;
 
 export default function ContactSection() {
   const { toast } = useToast();
-  
-  // Contact form with validation
+  const [submitting, setSubmitting] = useState(false);
+
   const form = useForm<ContactForm>({
     resolver: zodResolver(contactFormSchema),
-    defaultValues: {
-      name: '',
-      email: '',
-      subject: '',
-      message: ''
-    }
+    defaultValues: { name: "", email: "", subject: "", message: "" },
   });
 
-  const contactMutation = useMutation({
-    mutationFn: async (data: ContactForm) => {
-      return apiRequest('/api/contact', {
-        method: 'POST',
-        body: data
+  // ⭐ Replace with your real Formspree endpoint (e.g., https://formspree.io/f/movnzlyl)
+  const FORMSPREE_ENDPOINT = "https://formspree.io/f/movnzlyl";
+
+  const onSubmit = async (data: ContactForm) => {
+    setSubmitting(true);
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          ...data,
+          _subject: "Portfolio contact (devfolio)",
+          _gotcha: "", // honeypot
+        }),
       });
-    },
-    onSuccess: (result) => {
-      if (result.success) {
-        toast({
-          title: "Message sent successfully!",
-          description: result.message,
-        });
+
+      if (res.ok) {
+        toast({ title: "Message sent!", description: "Thanks—I'll get back to you shortly." });
         form.reset();
       } else {
         toast({
-          title: "Error sending message",
-          description: result.message || "Please try again or contact me directly via email.",
+          title: "Could not send message",
+          description: "Please try again or email me directly.",
           variant: "destructive",
         });
       }
-    },
-    onError: (error: any) => {
-      console.error('Contact form submission error:', error);
-      
-      // Handle rate limiting specifically
-      if (error?.message?.includes("Too many submissions")) {
-        toast({
-          title: "Too many submissions",
-          description: "Please wait 15 minutes before trying again.",
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: "Error sending message",
-          description: "Please try again or contact me directly via email.",
-          variant: "destructive",
-        });
-      }
+    } catch {
+      toast({
+        title: "Network error",
+        description: "Please try again or email me directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setSubmitting(false);
     }
-  });
-
-  const onSubmit = (data: ContactForm) => {
-    contactMutation.mutate(data);
   };
 
   const contactInfo = [
-    {
-      icon: Mail,
-      label: "Email",
-      value: "nag.thaduri001@gmail.com",
-      href: "mailto:nag.thaduri001@gmail.com"
-    },
-    {
-      icon: Phone,
-      label: "Phone",
-      value: "+1 (551) 328-1882",
-      href: "tel:+15513281882"
-    },
-    {
-      icon: MapPin,
-      label: "Location",
-      value: "San Francisco, CA",
-      href: "#"
-    }
+    { icon: Mail, label: "Email", value: "nag.thaduri001@gmail.com", href: "mailto:nag.thaduri001@gmail.com" },
+    { icon: Phone, label: "Phone", value: "+1 (551) 328-1882", href: "tel:+15513281882" },
+    { icon: MapPin, label: "Location", value: "Tampa, FL (Remote)", href: "#" },
   ];
 
   return (
@@ -100,7 +77,7 @@ export default function ContactSection() {
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Ready to bring your ideas to life? Let's discuss your next project
+            I’m open to roles and collaborations. Send me a message and I’ll reply shortly.
           </p>
         </div>
 
@@ -109,9 +86,10 @@ export default function ContactSection() {
           <Card>
             <CardContent className="p-8">
               <h3 className="text-xl font-semibold mb-6">Send a Message</h3>
+
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <FormField
                       control={form.control}
                       name="name"
@@ -119,16 +97,13 @@ export default function ContactSection() {
                         <FormItem>
                           <FormLabel>Name *</FormLabel>
                           <FormControl>
-                            <Input
-                              placeholder="Your full name"
-                              data-testid="input-contact-name"
-                              {...field}
-                            />
+                            <Input placeholder="Your full name" data-testid="input-contact-name" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
+
                     <FormField
                       control={form.control}
                       name="email"
@@ -148,25 +123,21 @@ export default function ContactSection() {
                       )}
                     />
                   </div>
-                  
+
                   <FormField
                     control={form.control}
                     name="subject"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Subject *</FormLabel>
+                        <FormLabel>Subject (optional)</FormLabel>
                         <FormControl>
-                          <Input
-                            placeholder="What's this about?"
-                            data-testid="input-contact-subject"
-                            {...field}
-                          />
+                          <Input placeholder="What's this about?" data-testid="input-contact-subject" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-                  
+
                   <FormField
                     control={form.control}
                     name="message"
@@ -185,14 +156,9 @@ export default function ContactSection() {
                       </FormItem>
                     )}
                   />
-                  
-                  <Button 
-                    type="submit" 
-                    className="w-full gap-2" 
-                    disabled={contactMutation.isPending}
-                    data-testid="button-send-message"
-                  >
-                    {contactMutation.isPending ? (
+
+                  <Button type="submit" className="w-full gap-2" disabled={submitting} data-testid="button-send-message">
+                    {submitting ? (
                       <>
                         <div className="w-4 h-4 border-2 border-current border-t-transparent animate-spin rounded-full" />
                         Sending...
@@ -204,6 +170,16 @@ export default function ContactSection() {
                       </>
                     )}
                   </Button>
+
+                  <div className="text-center text-sm">
+                    or{" "}
+                    <a
+                      className="underline"
+                      href="mailto:nag.thaduri001@gmail.com?subject=Portfolio%20Inquiry&body=Hi%20Nagaraju%2C%0A%0A"
+                    >
+                      Email instead
+                    </a>
+                  </div>
                 </form>
               </Form>
             </CardContent>
@@ -215,12 +191,12 @@ export default function ContactSection() {
               <CardContent className="p-8">
                 <h3 className="text-xl font-semibold mb-6">Contact Information</h3>
                 <div className="space-y-6">
-                  {contactInfo.map((info, index) => {
-                    const IconComponent = info.icon;
+                  {contactInfo.map((info, idx) => {
+                    const Icon = info.icon;
                     return (
-                      <div key={index} className="flex items-center gap-4">
+                      <div key={idx} className="flex items-center gap-4">
                         <div className="p-3 bg-primary/10 rounded-lg">
-                          <IconComponent className="w-5 h-5 text-primary" />
+                          <Icon className="w-5 h-5 text-primary" />
                         </div>
                         <div>
                           <div className="font-medium">{info.label}</div>
@@ -229,10 +205,7 @@ export default function ContactSection() {
                             className="text-muted-foreground hover:text-primary transition-colors"
                             data-testid={`link-contact-${info.label.toLowerCase()}`}
                             onClick={(e) => {
-                              if (info.href === '#') {
-                                e.preventDefault();
-                                console.log(`${info.label} clicked`); //todo: remove mock functionality
-                              }
+                              if (info.href === "#") e.preventDefault();
                             }}
                           >
                             {info.value}
@@ -249,8 +222,8 @@ export default function ContactSection() {
               <CardContent className="p-8">
                 <h3 className="text-xl font-semibold mb-4">Let's Build Something Great</h3>
                 <p className="text-muted-foreground mb-6">
-                  Whether you need a new website, web application, or help with an existing project, 
-                  I'm here to help bring your vision to life with modern, scalable solutions.
+                  Whether you need a new website, web application, or help with an existing project, I can help with
+                  modern, scalable solutions.
                 </p>
                 <div className="space-y-2 text-sm text-muted-foreground">
                   <div className="flex items-center gap-2">
