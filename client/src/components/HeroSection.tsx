@@ -19,6 +19,7 @@ export default function HeroSection() {
     return () => clearInterval(timer);
   }, []);
 
+  // Your real profiles + email
   const socialLinks = [
     {
       icon: Github,
@@ -32,13 +33,7 @@ export default function HeroSection() {
       label: "LinkedIn",
       testId: "link-linkedin",
     },
-    {
-  icon: Mail,
-  href: "mailto:nag.thaduri001@gmail.com?subject=Portfolio%20Inquiry&body=Hi%20Nagaraju%2C%0A%0A",
-  label: "Email",
-  testId: "link-email",
-},
-
+   
   ];
 
   const handleContact = () => {
@@ -69,12 +64,10 @@ export default function HeroSection() {
 
         {/* Summary */}
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12">
-          4+ years of experience building secure, high-performance applications across{" "}
-          <strong>banking</strong> and <strong>telecom</strong>. Skilled in{" "}
-          <strong>Java 11/17, Spring Boot, REST, Kafka</strong>, and{" "}
-          <strong>cloud-native deployments</strong> on AWS/Kubernetes. Proficient with{" "}
-          <strong>CI/CD (GitHub Actions, Jenkins)</strong> and frontend frameworks like{" "}
-          <strong>React & Angular</strong>.
+          4+ years building secure, high-performance apps across <strong>banking</strong> &{" "}
+          <strong>telecom</strong>. Microservices with <strong>Java 11/17, Spring Boot, REST, Kafka</strong>;
+          cloud-native on <strong>AWS/Kubernetes</strong>; CI/CD with <strong>GitHub Actions, Jenkins</strong>;
+          and responsive UIs with <strong>React & Angular</strong>.
         </p>
 
         {/* Action Buttons */}
@@ -100,25 +93,24 @@ export default function HeroSection() {
 
         {/* Social Links */}
         <div className="flex justify-center gap-6">
-  {socialLinks.map((social, idx) => {
-    const Icon = social.icon as any;
-    const isMail = social.href.startsWith("mailto:");
-    return (
-      <a
-        key={idx}
-        href={social.href}
-        target={isMail ? undefined : "_blank"}
-        rel={isMail ? undefined : "noopener noreferrer"}
-        className="p-3 rounded-lg hover-elevate transition-colors"
-        aria-label={social.label}
-        data-testid={social.testId}
-      >
-        <Icon className="w-6 h-6" />
-      </a>
-    );
-  })}
-</div>
-
+          {socialLinks.map((social, idx) => {
+            const Icon = social.icon as any;
+            const isMail = social.href.startsWith("mailto:");
+            return (
+              <a
+                key={idx}
+                href={social.href}
+                target={isMail ? undefined : "_blank"}
+                rel={isMail ? undefined : "noopener noreferrer"}
+                className="p-3 rounded-lg hover-elevate transition-colors"
+                aria-label={social.label}
+                data-testid={social.testId}
+              >
+                <Icon className="w-6 h-6" />
+              </a>
+            );
+          })}
+        </div>
 
         {/* Scroll Indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
