@@ -33,11 +33,12 @@ export default function HeroSection() {
       testId: "link-linkedin",
     },
     {
-      icon: Mail,
-      href: "mailto:nag.thaduri001@gmail.com",
-      label: "Email",
-      testId: "link-email",
-    },
+  icon: Mail,
+  href: "mailto:nag.thaduri001@gmail.com?subject=Portfolio%20Inquiry&body=Hi%20Nagaraju%2C%0A%0A",
+  label: "Email",
+  testId: "link-email",
+},
+
   ];
 
   const handleContact = () => {
@@ -99,24 +100,25 @@ export default function HeroSection() {
 
         {/* Social Links */}
         <div className="flex justify-center gap-6">
-          {socialLinks.map((social, idx) => {
-            const Icon = social.icon as any;
-            return (
-              <a
-  key={idx}
-  href={social.href}
-  target="_blank"
-  rel="noopener noreferrer"
-  className="p-3 rounded-lg hover-elevate transition-colors"
-  aria-label={social.label}
-  data-testid={social.testId}
->
-  <Icon className="w-6 h-6" />
-</a>
+  {socialLinks.map((social, idx) => {
+    const Icon = social.icon as any;
+    const isMail = social.href.startsWith("mailto:");
+    return (
+      <a
+        key={idx}
+        href={social.href}
+        target={isMail ? undefined : "_blank"}
+        rel={isMail ? undefined : "noopener noreferrer"}
+        className="p-3 rounded-lg hover-elevate transition-colors"
+        aria-label={social.label}
+        data-testid={social.testId}
+      >
+        <Icon className="w-6 h-6" />
+      </a>
+    );
+  })}
+</div>
 
-            );
-          })}
-        </div>
 
         {/* Scroll Indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
