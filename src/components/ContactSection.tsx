@@ -29,7 +29,7 @@ export default function ContactSection() {
   });
 
   // 👉 Replace with your real Formspree endpoint
-  const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORMSPREE_ID";
+  const FORMSPREE_ENDPOINT = "https://formspree.io/f/movnzlyl";
 
   const onSubmit = async (data: ContactForm) => {
     setSubmitting(true);
