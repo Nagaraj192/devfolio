@@ -44,7 +44,7 @@ export default function Footer() {
               className="font-bold text-xl hover-elevate rounded-lg px-3 py-2 text-left"
               data-testid="button-footer-logo"
             >
-              Raj
+              Nagaraju Thaduri
             </button>
             <p className="text-muted-foreground text-sm max-w-xs">
               Full Stack Developer passionate about creating exceptional digital experiences 
@@ -121,7 +121,7 @@ export default function Footer() {
         <div className="mt-12 pt-8 border-t border-border">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-muted-foreground text-center md:text-left">
-              © {currentYear} Raj. All rights reserved.
+              © {currentYear} Nagaraju Thaduri. All rights reserved.
             </p>
             <p className="text-sm text-muted-foreground flex items-center gap-1 text-center md:text-right">
               Made with <Heart className="w-4 h-4 text-red-500" /> using React & Tailwind CSS
