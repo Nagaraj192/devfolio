@@ -95,7 +95,7 @@ export default function HeroSection() {
           </Button>
 
           {/* Resume Download */}
-          <a href={`${import.meta.env.BASE_URL}Raj_Resume.pdf`} download>
+          <a href={`${import.meta.env.BASE_URL}Nagaraju_Thaduri_resume.pdf`} download>
             <Button variant="secondary" size="lg" className="gap-2" data-testid="button-download-resume">
               <FileDown className="w-5 h-5" />
               Download Resume
