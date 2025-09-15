@@ -104,14 +104,14 @@ export default function Footer() {
                 className="block hover:text-primary transition-colors"
                 data-testid="link-footer-contact-email"
               >
-                alex.johnson@email.com
+                nag.thaduri001@gmail.com
               </a>
               <a
                 href="tel:+15551234567"
                 className="block hover:text-primary transition-colors"
                 data-testid="link-footer-contact-phone"
               >
-                +1 (555) 123-4567
+                +1 (551) 328-1882
               </a>
             </div>
           </div>

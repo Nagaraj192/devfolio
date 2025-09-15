@@ -39,8 +39,8 @@ export default function Navigation({ activeSection, setActiveSection }: Navigati
 
   const downloadResume = () => {
     const link = document.createElement('a');
-    link.href = '/Raj_Resume.pdf';
-    link.download = 'Raj_Resume.pdf';
+    link.href = '/Nagaraju_Thaduri_resume.pdf';
+    link.download = 'Nagaraju_Thaduri_resume.pdf';
     link.click();
     console.log('Resume download triggered');
   };
@@ -60,7 +60,7 @@ export default function Navigation({ activeSection, setActiveSection }: Navigati
             className="font-bold text-xl hover-elevate rounded-lg px-3 py-2"
             data-testid="button-logo"
           >
-            Raj
+            Nagaraju Thaduri
           </button>
 
           {/* Desktop Navigation */}

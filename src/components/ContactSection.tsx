@@ -77,14 +77,14 @@ export default function ContactSection() {
     {
       icon: Mail,
       label: "Email",
-      value: "alex.johnson@email.com",
-      href: "mailto:alex.johnson@email.com"
+      value: "nag.thaduri001@gmail.com",
+      href: "mailto:nag.thaduri001@gmail.com"
     },
     {
       icon: Phone,
       label: "Phone",
-      value: "+1 (555) 123-4567",
-      href: "tel:+15551234567"
+      value: "+1 (551) 328-1882",
+      href: "tel:+15513281882"
     },
     {
       icon: MapPin,
