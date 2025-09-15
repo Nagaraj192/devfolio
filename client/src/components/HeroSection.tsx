@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Github, Linkedin, ExternalLink, Mail, FileDown } from "lucide-react";
-// If you don't use Dev.to/Medium, you can remove these imports + entries
-import { SiDevdotto, SiMedium } from "react-icons/si";
 
 export default function HeroSection() {
   const [displayText, setDisplayText] = useState("");
-  const fullText = "Full Stack Java Developer"; // from your resume
+  const fullText = "Full Stack Java Developer";
 
   useEffect(() => {
     let index = 0;
@@ -21,7 +19,6 @@ export default function HeroSection() {
     return () => clearInterval(timer);
   }, []);
 
-  // ⬇️ Update your real profiles here
   const socialLinks = [
     {
       icon: Github,
@@ -31,21 +28,15 @@ export default function HeroSection() {
     },
     {
       icon: Linkedin,
-      href: "https://www.linkedin.com/in/REPLACE-YOUR-HANDLE", // TODO: put your LinkedIn URL
+      href: "https://www.linkedin.com/in/nagaraju-thaduri/",
       label: "LinkedIn",
       testId: "link-linkedin",
     },
     {
-      icon: SiDevdotto,
-      href: "#", // TODO: dev.to profile if you have one, else remove this entry
-      label: "Dev.to",
-      testId: "link-devto",
-    },
-    {
-      icon: SiMedium,
-      href: "#", // TODO: medium profile if you have one, else remove this entry
-      label: "Medium",
-      testId: "link-medium",
+      icon: Mail,
+      href: "mailto:nag.thaduri001@gmail.com",
+      label: "Email",
+      testId: "link-email",
     },
   ];
 
@@ -77,9 +68,12 @@ export default function HeroSection() {
 
         {/* Summary */}
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12">
-          4+ years building secure, high-performance apps across banking & telecom. Microservices with
-          Java&nbsp;11/17, Spring Boot, REST & Kafka; cloud on AWS/Kubernetes; CI/CD with GitHub Actions/Jenkins; and
-          responsive UIs with React/Angular. Strong with PostgreSQL & Redis.
+          4+ years of experience building secure, high-performance applications across{" "}
+          <strong>banking</strong> and <strong>telecom</strong>. Skilled in{" "}
+          <strong>Java 11/17, Spring Boot, REST, Kafka</strong>, and{" "}
+          <strong>cloud-native deployments</strong> on AWS/Kubernetes. Proficient with{" "}
+          <strong>CI/CD (GitHub Actions, Jenkins)</strong> and frontend frameworks like{" "}
+          <strong>React & Angular</strong>.
         </p>
 
         {/* Action Buttons */}
@@ -107,7 +101,6 @@ export default function HeroSection() {
         <div className="flex justify-center gap-6">
           {socialLinks.map((social, idx) => {
             const Icon = social.icon as any;
-            if (!social.href || social.href === "#") return null; // hide empty profiles
             return (
               <a
                 key={idx}
