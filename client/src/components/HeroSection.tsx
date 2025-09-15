@@ -64,7 +64,7 @@ export default function HeroSection() {
       <div className="text-center max-w-4xl relative">
         {/* Main Heading */}
         <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-          Hi, I'm <span className="text-primary">Nagaraju (Raj) Thaduri</span>
+          Hi, I'm <span className="text-primary">Nagaraju Thaduri</span>
         </h1>
 
         {/* Animated Subtitle */}
