@@ -1,162 +1,118 @@
-import { useState, useEffect } from 'react';
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Moon, Sun, Download, Menu, X } from "lucide-react";
+import { Download, Menu, X } from "lucide-react";
 
-interface NavigationProps {
-  activeSection: string;
-  setActiveSection: (section: string) => void;
-}
+type NavItem = { id: string; label: string };
 
-export default function Navigation({ activeSection, setActiveSection }: NavigationProps) {
-  const [isDark, setIsDark] = useState(true);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+const items: NavItem[] = [
+  { id: "hero", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "skills", label: "Skills" },
+  { id: "experience", label: "Experience" },
+  { id: "projects", label: "Projects" },
+  { id: "contact", label: "Contact" },
+];
 
-  const sections = [
-    { id: 'hero', label: 'Home' },
-    { id: 'about', label: 'About' },
-    { id: 'skills', label: 'Skills' },
-    { id: 'experience', label: 'Experience' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'contact', label: 'Contact' }
-  ];
+export default function Navigation({
+  activeSection,
+}: {
+  activeSection?: string;
+}) {
+  const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [isDark]);
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setActiveSection(sectionId);
-    }
-    setIsMobileMenuOpen(false);
+  const onClickAnchor = (id: string) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+    setOpen(false);
   };
 
-  const downloadResume = () => {
-    const link = document.createElement('a');
-    link.href = '/Raj_Resume.pdf';
-    link.download = 'Raj_Resume.pdf';
-    link.click();
-    console.log('Resume download triggered');
-  };
-
-  const toggleTheme = () => {
-    setIsDark(!isDark);
-    console.log('Theme toggled to:', !isDark ? 'dark' : 'light'); //todo: remove mock functionality
-  };
+  const linkCls = (id: string) =>
+    `px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+      activeSection === id ? "bg-accent text-accent-foreground" : "hover:bg-muted"
+    }`;
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <button
-            onClick={() => scrollToSection('hero')}
-            className="font-bold text-xl hover-elevate rounded-lg px-3 py-2"
-            data-testid="button-logo"
-          >
-            Raj
-          </button>
+    <nav className="fixed inset-x-0 top-0 z-50 border-b bg-background/80 backdrop-blur">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
+        {/* Brand with full name */}
+        <a
+          href="#hero"
+          onClick={onClickAnchor("hero")}
+          className="font-semibold tracking-tight"
+        >
+          Nagaraju Thaduri
+        </a>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {sections.map((section) => (
-              <button
-                key={section.id}
-                onClick={() => scrollToSection(section.id)}
-                className={`text-sm font-medium transition-colors hover-elevate rounded-lg px-3 py-2 ${
-                  activeSection === section.id
-                    ? 'text-primary'
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-                data-testid={`button-nav-${section.id}`}
-              >
-                {section.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Desktop Actions */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={downloadResume}
-              className="gap-2"
-              data-testid="button-download-resume"
+        {/* Desktop nav */}
+        <div className="hidden items-center gap-2 md:flex">
+          {items.map((it) => (
+            <a
+              key={it.id}
+              href={`#${it.id}`}
+              onClick={onClickAnchor(it.id)}
+              className={linkCls(it.id)}
             >
-              <Download className="w-4 h-4" />
+              {it.label}
+            </a>
+          ))}
+
+          {/* Resume download (TOP-RIGHT) */}
+          <a
+            href={`${import.meta.env.BASE_URL}Nagaraju_Thaduri_resume.pdf`}
+            download
+            aria-label="Download Resume (PDF)"
+          >
+            <Button variant="outline" size="sm" className="gap-2">
+              <Download className="h-4 w-4" />
               Resume
             </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-              data-testid="button-theme-toggle"
-            >
-              {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-            </Button>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            data-testid="button-mobile-menu"
-          >
-            {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
-          </Button>
+          </a>
         </div>
 
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-border">
-            <div className="flex flex-col space-y-4">
-              {sections.map((section) => (
-                <button
-                  key={section.id}
-                  onClick={() => scrollToSection(section.id)}
-                  className={`text-left px-3 py-2 rounded-lg hover-elevate ${
-                    activeSection === section.id
-                      ? 'text-primary font-medium'
-                      : 'text-muted-foreground'
+        {/* Mobile toggle */}
+        <button
+          className="inline-flex items-center justify-center rounded-md p-2 md:hidden hover:bg-muted"
+          onClick={() => setOpen((s) => !s)}
+          aria-label="Toggle menu"
+        >
+          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
+      </div>
+
+      {/* Mobile menu */}
+      {open && (
+        <div className="border-t bg-background md:hidden">
+          <div className="mx-auto max-w-6xl px-4 py-3">
+            <div className="flex flex-col gap-1">
+              {items.map((it) => (
+                <a
+                  key={it.id}
+                  href={`#${it.id}`}
+                  onClick={onClickAnchor(it.id)}
+                  className={`px-3 py-2 rounded-md text-sm font-medium ${
+                    activeSection === it.id ? "bg-accent text-accent-foreground" : "hover:bg-muted"
                   }`}
-                  data-testid={`button-mobile-nav-${section.id}`}
                 >
-                  {section.label}
-                </button>
+                  {it.label}
+                </a>
               ))}
-              <div className="flex items-center gap-2 pt-4 border-t border-border">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={downloadResume}
-                  className="gap-2 flex-1"
-                  data-testid="button-mobile-download-resume"
-                >
-                  <Download className="w-4 h-4" />
+
+              <a
+                href={`${import.meta.env.BASE_URL}Nagaraju_Thaduri_resume.pdf`}
+                download
+                aria-label="Download Resume (PDF)"
+                className="mt-2"
+              >
+                <Button variant="outline" size="sm" className="w-full gap-2">
+                  <Download className="h-4 w-4" />
                   Resume
                 </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={toggleTheme}
-                  data-testid="button-mobile-theme-toggle"
-                >
-                  {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-                </Button>
-              </div>
+              </a>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </nav>
   );
 }
