@@ -1,139 +1,79 @@
-// TODO: Replace the sample data below with your real experience/projects.
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Calendar, MapPin, Building } from "lucide-react";
+type Role = {
+  title: string;
+  company: string;
+  location: string;
+  dates: string;
+  bullets: string[];
+};
+
+const experience: Role[] = [
+  {
+    title: "Full Stack Java Developer",
+    company: "JPMorgan Chase",
+    location: "Tampa, FL (Remote)",
+    dates: "Feb 2024 – Present",
+    bullets: [
+      "Built secure, compliant microservices (Java 11/17, Spring Boot, REST) supporting millions of customer interactions with 99.99% uptime.",
+      "Reduced API response times by 30% using PostgreSQL tuning and Redis caching.",
+      "Delivered event-driven transaction workflows with Apache Kafka.",
+      "Deployed containerized apps on AWS EKS; monitoring via CloudWatch, Splunk, and ELK.",
+      "Streamlined CI/CD automation with GitHub Actions, accelerating release cycles by 40%.",
+      "Developed UIs with React, TypeScript, and Angular, improving performance and workflows.",
+    ],
+  },
+  {
+    title: "Java Developer",
+    company: "Tech Mahindra",
+    location: "Hyderabad, India",
+    dates: "Apr 2022 – Aug 2023",
+    bullets: [
+      "Modernized telecom platforms with Spring Boot and Angular, improving reliability.",
+      "Migrated APIs from SOAP to REST with zero downtime, reducing outages by 30%.",
+      "Automated CI/CD pipelines using Jenkins, GitHub Actions, and GitLab.",
+      "Built Python utilities for automated log analysis and MySQL/MongoDB/Redis tuning.",
+      "Led OpenShift-based deployments and integrated ETL pipelines for telecom data.",
+    ],
+  },
+  {
+    title: "Software Engineer",
+    company: "Ericsson India Pvt Ltd",
+    location: "Hyderabad, India",
+    dates: "Jan 2021 – Mar 2022",
+    bullets: [
+      "Developed telecom operation systems using Java, Spring MVC, and Hibernate.",
+      "Introduced containerized Spring Boot microservices deployed on Kubernetes (EKS).",
+      "Standardized CI/CD pipelines with Jenkins and Azure DevOps, improving reliability.",
+      "Designed real-time dashboards with Angular/React to modernize user experience.",
+      "Maintained PostgreSQL databases supporting multi-terabyte telecom data sets.",
+    ],
+  },
+];
 
 export default function ExperienceSection() {
-  const experiences = [
-    {
-      company: "TechCorp Solutions",
-      position: "Senior Full Stack Developer",
-      duration: "2022 - Present",
-      location: "San Francisco, CA",
-      type: "Full-time",
-      description: "Lead development of customer-facing web applications serving 100K+ users daily. Architected microservices infrastructure and mentored junior developers.",
-      achievements: [
-        "Reduced application load time by 40% through optimization",
-        "Led team of 4 developers on major product redesign",
-        "Implemented CI/CD pipeline reducing deployment time by 60%",
-        "Built real-time chat system handling 10K+ concurrent users"
-      ],
-      technologies: ["React", "Node.js", "MongoDB", "AWS", "Docker"]
-    },
-    {
-      company: "StartupXYZ",
-      position: "Full Stack Developer", 
-      duration: "2020 - 2022",
-      location: "Remote",
-      type: "Full-time",
-      description: "Developed MVP and core features for B2B SaaS platform. Worked directly with product team to translate requirements into scalable solutions.",
-      achievements: [
-        "Built complete authentication and authorization system",
-        "Designed and implemented RESTful APIs",
-        "Created responsive dashboard with real-time analytics",
-        "Integrated third-party payment processing"
-      ],
-      technologies: ["React", "Express.js", "PostgreSQL", "Stripe", "Heroku"]
-    },
-    {
-      company: "Digital Agency Pro",
-      position: "Frontend Developer",
-      duration: "2019 - 2020", 
-      location: "New York, NY",
-      type: "Full-time",
-      description: "Specialized in creating pixel-perfect, responsive websites for clients across various industries. Collaborated with design team on user experience optimization.",
-      achievements: [
-        "Delivered 25+ client projects on time and budget",
-        "Improved website performance scores by average 35%",
-        "Established component library for design system",
-        "Mentored 2 junior developers"
-      ],
-      technologies: ["Vue.js", "JavaScript", "SCSS", "WordPress", "Figma"]
-    }
-  ];
-
   return (
     <section id="experience" className="py-24 px-6">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Work Experience</h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Building impactful solutions across diverse industries and company stages
-          </p>
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold">Experience</h2>
+          <p className="text-muted-foreground mt-2">Professional roles and key contributions</p>
         </div>
 
         <div className="space-y-8">
-          {experiences.map((exp, index) => (
-            <Card key={index} className="hover-elevate">
-              <CardContent className="p-8">
-                <div className="grid md:grid-cols-3 gap-6">
-                  {/* Left Column - Company Info */}
-                  <div className="space-y-4">
-                    <div>
-                      <div className="flex items-center gap-2 mb-2">
-                        <Building className="w-4 h-4 text-muted-foreground" />
-                        <h3 className="font-semibold text-lg" data-testid={`text-company-${index}`}>{exp.company}</h3>
-                      </div>
-                      <h4 className="text-primary font-medium" data-testid={`text-position-${index}`}>{exp.position}</h4>
-                    </div>
-                    
-                    <div className="space-y-2 text-sm text-muted-foreground">
-                      <div className="flex items-center gap-2">
-                        <Calendar className="w-4 h-4" />
-                        <span data-testid={`text-duration-${index}`}>{exp.duration}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <MapPin className="w-4 h-4" />
-                        <span data-testid={`text-location-${index}`}>{exp.location}</span>
-                      </div>
-                    </div>
-                    
-                    <Badge variant="secondary" className="w-fit">
-                      {exp.type}
-                    </Badge>
-                  </div>
-
-                  {/* Right Column - Details */}
-                  <div className="md:col-span-2 space-y-6">
-                    <p className="text-muted-foreground" data-testid={`text-description-${index}`}>
-                      {exp.description}
-                    </p>
-                    
-                    <div>
-                      <h5 className="font-medium mb-3">Key Achievements</h5>
-                      <ul className="space-y-2">
-                        {exp.achievements.map((achievement, achIndex) => (
-                          <li 
-                            key={achIndex} 
-                            className="flex items-start gap-3 text-sm text-muted-foreground"
-                            data-testid={`text-achievement-${index}-${achIndex}`}
-                          >
-                            <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0" />
-                            {achievement}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    
-                    <div>
-                      <h5 className="font-medium mb-3">Technologies Used</h5>
-                      <div className="flex flex-wrap gap-2">
-                        {exp.technologies.map((tech, techIndex) => (
-                          <Badge 
-                            key={techIndex} 
-                            variant="outline" 
-                            className="text-xs"
-                            data-testid={`badge-tech-${index}-${tech.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}
-                          >
-                            {tech}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+          {experience.map((role) => (
+            <div key={role.company + role.title} className="rounded-xl border p-6">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+                <h3 className="text-xl font-semibold">
+                  {role.title} · {role.company}
+                </h3>
+                <span className="text-sm opacity-80">{role.dates}</span>
+              </div>
+              <p className="text-sm opacity-80 mb-3">{role.location}</p>
+              <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+                {role.bullets.map((b, i) => (
+                  <li key={i}>{b}</li>
+                ))}
+              </ul>
+            </div>
           ))}
         </div>
       </div>
