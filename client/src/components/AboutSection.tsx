@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import profileImage from "@assets/generated_images/Professional_developer_headshot_afc57cc9.png";
+import profileImage from "@/assets/Photo_Nag.png";
+
 
 export default function AboutSection() {
   return (
