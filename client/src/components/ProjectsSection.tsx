@@ -2,7 +2,6 @@ type Project = {
   title: string;
   description: string;
   stack: string[];
-  links?: { label: string; href: string }[];
 };
 
 const projects: Project[] = [
@@ -11,30 +10,18 @@ const projects: Project[] = [
     description:
       "Kafka-driven microservices on AWS EKS enabling reliable, low-latency transaction flows with observability via CloudWatch, Splunk, and ELK.",
     stack: ["Java", "Spring Boot", "Kafka", "PostgreSQL", "Redis", "AWS EKS"],
-    links: [
-      // replace with real URLs if public
-      // { label: "Live Demo", href: "https://..." },
-      // { label: "GitHub", href: "https://github.com/..." },
-    ],
   },
   {
     title: "Telecom API Modernization",
     description:
       "Migrated legacy SOAP services to REST with Spring Boot and Angular, improved reliability, and deployed on OpenShift with zero downtime.",
     stack: ["Java", "Spring Boot", "Angular", "Kubernetes", "OpenShift"],
-    links: [
-      // { label: "Case Study", href: "https://..." },
-      // { label: "GitHub", href: "https://github.com/..." },
-    ],
   },
   {
     title: "CI/CD Automation & Monitoring",
     description:
       "End-to-end CI/CD using GitHub Actions/Jenkins with automated tests and container builds; centralized logging with ELK and Splunk.",
     stack: ["GitHub Actions", "Jenkins", "Docker", "ELK", "Splunk"],
-    links: [
-      // { label: "Pipeline YAML", href: "https://github.com/..." },
-    ],
   },
 ];
 
@@ -68,22 +55,6 @@ export default function ProjectsSection() {
                   </li>
                 ))}
               </ul>
-
-              {p.links && p.links.length > 0 && (
-                <div className="mt-4 flex gap-3">
-                  {p.links.map((l) => (
-                    <a
-                      key={l.href}
-                      href={l.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-primary underline underline-offset-4 text-sm"
-                    >
-                      {l.label}
-                    </a>
-                  ))}
-                </div>
-              )}
             </article>
           ))}
         </div>
