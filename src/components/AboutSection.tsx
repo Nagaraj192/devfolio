@@ -20,7 +20,7 @@ export default function AboutSection() {
               <Avatar className="w-80 h-80 border-4 border-border">
                 <AvatarImage 
                   src={profileImage} 
-                  alt="Raj - Full Stack Developer" 
+                  alt="Nagaraju Thaduri - Full Stack Developer" 
                   className="object-cover"
                 />
                 <AvatarFallback className="text-6xl">AJ</AvatarFallback>
