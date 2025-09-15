@@ -28,7 +28,7 @@ export default function HeroSection() {
     },
     {
       icon: Linkedin,
-      href: "https://www.linkedin.com/in/nagaraju-thaduri/",
+      href: "https://www.linkedin.com/in/nagarajuthaduri/",
       label: "LinkedIn",
       testId: "link-linkedin",
     },
