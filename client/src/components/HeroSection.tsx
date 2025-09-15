@@ -103,16 +103,17 @@ export default function HeroSection() {
             const Icon = social.icon as any;
             return (
               <a
-                key={idx}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 rounded-lg hover-elevate transition-colors"
-                aria-label={social.label}
-                data-testid={social.testId}
-              >
-                <Icon className="w-6 h-6" />
-              </a>
+  key={idx}
+  href={social.href}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="p-3 rounded-lg hover-elevate transition-colors"
+  aria-label={social.label}
+  data-testid={social.testId}
+>
+  <Icon className="w-6 h-6" />
+</a>
+
             );
           })}
         </div>
