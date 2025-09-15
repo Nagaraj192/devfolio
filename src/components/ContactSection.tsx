@@ -1,16 +1,16 @@
 import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Card, CardContent } from "./ui/card";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "../hooks/use-toast";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-// --- Local schema (no @shared/schema, no apiRequest) ---
+// Local schema (no @shared/schema)
 const contactFormSchema = z.object({
   name: z.string().min(2, "Please enter your full name."),
   email: z.string().email("Please enter a valid email."),
@@ -28,8 +28,8 @@ export default function ContactSection() {
     defaultValues: { name: "", email: "", subject: "", message: "" },
   });
 
-  // ⭐ Replace with your real Formspree endpoint (e.g., https://formspree.io/f/movnzlyl)
-  const FORMSPREE_ENDPOINT = "https://formspree.io/f/movnzlyl";
+  // 👉 Replace with your real Formspree endpoint
+  const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORMSPREE_ID";
 
   const onSubmit = async (data: ContactForm) => {
     setSubmitting(true);
@@ -37,13 +37,8 @@ export default function ContactSection() {
       const res = await fetch(FORMSPREE_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          ...data,
-          _subject: "Portfolio contact (devfolio)",
-          _gotcha: "", // honeypot
-        }),
+        body: JSON.stringify({ ...data, _subject: "Portfolio contact (devfolio)", _gotcha: "" }),
       });
-
       if (res.ok) {
         toast({ title: "Message sent!", description: "Thanks—I'll get back to you shortly." });
         form.reset();
@@ -93,7 +88,7 @@ export default function ContactSection() {
                     <FormField
                       control={form.control}
                       name="name"
-                      render={({ field }) => (
+                      render={({ field }: any) => (
                         <FormItem>
                           <FormLabel>Name *</FormLabel>
                           <FormControl>
@@ -103,11 +98,10 @@ export default function ContactSection() {
                         </FormItem>
                       )}
                     />
-
                     <FormField
                       control={form.control}
                       name="email"
-                      render={({ field }) => (
+                      render={({ field }: any) => (
                         <FormItem>
                           <FormLabel>Email *</FormLabel>
                           <FormControl>
@@ -127,7 +121,7 @@ export default function ContactSection() {
                   <FormField
                     control={form.control}
                     name="subject"
-                    render={({ field }) => (
+                    render={({ field }: any) => (
                       <FormItem>
                         <FormLabel>Subject (optional)</FormLabel>
                         <FormControl>
@@ -141,7 +135,7 @@ export default function ContactSection() {
                   <FormField
                     control={form.control}
                     name="message"
-                    render={({ field }) => (
+                    render={({ field }: any) => (
                       <FormItem>
                         <FormLabel>Message *</FormLabel>
                         <FormControl>
